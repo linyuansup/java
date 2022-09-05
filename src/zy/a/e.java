@@ -1,6 +1,6 @@
-package zy.a.e;
+package zy.a;
 
-public class Main {
+public class e {
     public static void main(String[] args) {
         int x = 5, y = 3, z = 0;
         System.out.println(z + y * x++);

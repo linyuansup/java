@@ -1,8 +1,8 @@
-package zy.a.c;
+package zy.a;
 
 import java.math.BigInteger;
 
-public class Main {
+public class c {
     public static void main(String[] args) {
         BigInteger result = new BigInteger("0");
         int i = 1;

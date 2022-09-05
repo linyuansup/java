@@ -1,6 +1,6 @@
-package zy.a.d;
+package zy.a;
 
-public class Main {
+public class d {
     public static void main(String[] args) {
         // 希腊字母对应的 Unicode 为 945-969
         for (int i = 945; i <= 969; i++) {
