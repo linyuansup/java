@@ -9,5 +9,6 @@ public class a {
         // 读取数据
         float v = scanner.nextFloat();
         System.out.println(v * 9 / 5 + 32);
+        scanner.close();
     }
 }

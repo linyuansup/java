@@ -11,5 +11,6 @@ public class b {
         // 读取输入
         float v = scanner.nextFloat();
         System.out.println(v * v * v * 4 / 3 * PI);
+        scanner.close();
     }
 }
