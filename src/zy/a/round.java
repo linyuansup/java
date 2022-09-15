@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import static java.lang.Math.PI;
 
-public class round {
+public class Round {
     public static void main(String[] args) {
         // 创建 Scanner
         Scanner scanner = new Scanner(System.in);

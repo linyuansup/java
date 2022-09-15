@@ -2,7 +2,7 @@ package zy.a;
 
 import java.math.BigInteger;
 
-public class doublemulti {
+public class DoubleMulti {
     public static void main(String[] args) {
         BigInteger result = new BigInteger("0");
         int i = 1;

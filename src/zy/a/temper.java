@@ -2,7 +2,7 @@ package zy.a;
 
 import java.util.Scanner;
 
-public class temper {
+public class Temper {
     public static void main(String[] args) {
         // 创建 Scanner
         Scanner scanner = new Scanner(System.in);
