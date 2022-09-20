@@ -1,36 +1,33 @@
 package zy.b;
 
+import java.util.Random;
 import java.util.Vector;
 
 public class Stu {
     public static void main(String[] args) {
-        // 定义一个 Object 的容器存储数据
         Vector<Object> vector = new Vector<>();
-        // 定义第一个学生
-        Student s1 = new Student();
-        s1.id = 114514;
-        s1.name = "tshe";
-        // 定义第二个学生
-        Student s2 = new Student();
-        s2.id = 1919810;
-        s2.name = "ysxb";
-        // 定义第一个教师
-        Faculty f1 = new Faculty();
-        f1.id = 12345;
-        f1.name = "t1";
-        // 定义第二个教师
-        Faculty f2 = new Faculty();
-        f2.id = 123456;
-        f2.name = "t2";
-        // 定义一个 stf
-        Staff stf1 = new Staff();
-        stf1.id = 54321;
-        stf1.name = "hahaha";
-        vector.add(s1);
-        vector.add(s2);
-        vector.add(f1);
-        vector.add(f2);
-        vector.add(stf1);
+        for (int i = 0; i < 5; i++) {
+            switch (new Random().nextInt(3)) {
+                case 0 -> {
+                    Student stu = new Student();
+                    stu.id = 114514;
+                    stu.name = "tshe";
+                    vector.add(stu);
+                }
+                case 1 -> {
+                    Faculty fac = new Faculty();
+                    fac.id = 1919;
+                    fac.name = "lts";
+                    vector.add(fac);
+                }
+                case 2 -> {
+                    Staff stf = new Staff();
+                    stf.id = 810;
+                    stf.name = "dc";
+                    vector.add(stf);
+                }
+            }
+        }
         for (Object object : vector) {
             System.out.println(object);
         }
