@@ -36,12 +36,9 @@ class TopBar extends JPanel {
         add(new JLabel("端口号："));
         JTextArea portArea = new JTextArea();
         add(portArea);
-        ActionListener connectClickFunc = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        ActionListener connectClickFunc = e -> new Thread(() -> {
 
-            }
-        };
+        }).start();
         JButton connectButton = new JButton("连接");
         connectButton.addActionListener(connectClickFunc);
         add(connectButton);
@@ -69,12 +66,7 @@ class BottomBar extends JPanel {
         JTextArea sendArea = new JTextArea();
         add(BorderLayout.CENTER, sendArea);
         JButton sendButton = new JButton("发送");
-        ActionListener sendClickFunc = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("发送");
-            }
-        };
+        ActionListener sendClickFunc = e -> System.out.println("发送");
         sendButton.addActionListener(sendClickFunc);
         add(BorderLayout.EAST, sendButton);
     }
