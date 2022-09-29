@@ -18,7 +18,7 @@ public class Client {
         SocketClient socketClient = new SocketClient();
         clientTopBar.setClick(e -> {
             socketClient.setAsClient(clientTopBar.getIP(), clientTopBar.getPort(), middleBar.getMessageArea());
-            socketClient.start();
+            socketClient.startServer();
         });
         bottomBar.setClick(e -> {
             socketClient.sendText(bottomBar.getText());

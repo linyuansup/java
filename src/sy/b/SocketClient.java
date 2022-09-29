@@ -90,4 +90,12 @@ public class SocketClient extends Thread {
             addText("发生错误" + ex);
         }
     }
+
+    public void startServer() {
+        if (isAlive()) {
+            addText("不允许多次连接");
+            return;
+        }
+        start();
+    }
 }

@@ -19,7 +19,7 @@ public class Server {
         SocketClient socketClient = new SocketClient();
         serverTopBar.setClick(e -> {
             socketClient.setAsServer(serverTopBar.getPort(), middleBar.getMessageArea());
-            socketClient.start();
+            socketClient.startServer();
         });
         bottomBar.setClick(e -> {
             socketClient.sendText(bottomBar.getText());
