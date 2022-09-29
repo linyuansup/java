@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MiddleBar extends JPanel {
+    public JTextArea getMessageArea() {
+        return messageArea;
+    }
+
     private final JTextArea messageArea;
 
     public MiddleBar() {
@@ -15,10 +19,6 @@ public class MiddleBar extends JPanel {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(messageArea);
         add(scrollPane, BorderLayout.CENTER);
-    }
-
-    public void setText(String s) {
-        messageArea.append(s + "\n");
     }
 
     public void clean() {
