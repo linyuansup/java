@@ -2,11 +2,11 @@ package sy.b;
 
 import javax.swing.*;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class SocketClient extends Thread {
     private int port;
@@ -14,7 +14,6 @@ public class SocketClient extends Thread {
     private Socket socket;
     private InputStream inputStream;
     private ByteArrayOutputStream byteArrayOutputStream;
-    private OutputStream os;
 
     private String IP = null;
     private JTextArea textArea;
@@ -49,30 +48,17 @@ public class SocketClient extends Thread {
                 byteArrayOutputStream.reset();
             }
         } catch (Exception ex) {
-            textArea.setText("发生错误：" + ex);
-        } finally {
-            try {
-                if (serverSocket != null) {
-                    serverSocket.close();
-                }
-                if (socket != null) {
-                    socket.close();
-                }
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-                if (byteArrayOutputStream != null) {
-                    byteArrayOutputStream.close();
-                }
-            } catch (Exception ex) {
-                addText("发生错误" + ex);
+            if (!(ex instanceof SocketException)) {
+                textArea.setText("发生错误：" + ex);
             }
+        } finally {
+            close();
         }
     }
 
     public void sendText(String s) {
         try {
-            os = socket.getOutputStream();
+            OutputStream os = socket.getOutputStream();
             os.write(s.getBytes("GBK"));
         } catch (Exception ex) {
             addText("发生错误" + ex);
@@ -83,5 +69,25 @@ public class SocketClient extends Thread {
         this.IP = IP;
         this.port = port;
         this.textArea = messageArea;
+    }
+
+    public void close() {
+        try {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+            if (socket != null) {
+                socket.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (byteArrayOutputStream != null) {
+                byteArrayOutputStream.close();
+            }
+            addText("连接断开");
+        } catch (Exception ex) {
+            addText("发生错误" + ex);
+        }
     }
 }

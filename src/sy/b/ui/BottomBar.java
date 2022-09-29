@@ -25,4 +25,8 @@ public class BottomBar extends JPanel {
     public void setClick(ActionListener onClick) {
         sendButton.addActionListener(onClick);
     }
+
+    public void clean() {
+        sendArea.setText("");
+    }
 }

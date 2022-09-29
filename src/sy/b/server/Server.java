@@ -7,12 +7,6 @@ import sy.b.ui.ServerTopBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class Server {
 
@@ -23,12 +17,13 @@ public class Server {
         MiddleBar middleBar = new MiddleBar();
         BottomBar bottomBar = new BottomBar();
         SocketClient socketClient = new SocketClient();
-        serverTopBar.setClick(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                socketClient.setAsServer(serverTopBar.getPort(), middleBar.getMessageArea());
-                socketClient.start();
-            }
+        serverTopBar.setClick(e -> {
+            socketClient.setAsServer(serverTopBar.getPort(), middleBar.getMessageArea());
+            socketClient.start();
+        });
+        bottomBar.setClick(e -> {
+            socketClient.sendText(bottomBar.getText());
+            bottomBar.clean();
         });
         mainUI.setLayout(new BorderLayout());
         mainUI.setTitle("服务端");

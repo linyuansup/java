@@ -7,12 +7,8 @@ import sy.b.ui.MiddleBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Client {
-
-    SocketClient socketClient = null;
 
     public static void main(String[] args) {
         JFrame mainUI = new JFrame();
@@ -20,12 +16,13 @@ public class Client {
         MiddleBar middleBar = new MiddleBar();
         BottomBar bottomBar = new BottomBar();
         SocketClient socketClient = new SocketClient();
-        bottomBar.setClick(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                socketClient.setAsClient(clientTopBar.getIP(), clientTopBar.getPort(), middleBar.getMessageArea());
-                socketClient.start();
-            }
+        clientTopBar.setClick(e -> {
+            socketClient.setAsClient(clientTopBar.getIP(), clientTopBar.getPort(), middleBar.getMessageArea());
+            socketClient.start();
+        });
+        bottomBar.setClick(e -> {
+            socketClient.sendText(bottomBar.getText());
+            bottomBar.clean();
         });
         mainUI.setLayout(new BorderLayout());
         mainUI.setTitle("客户端");
