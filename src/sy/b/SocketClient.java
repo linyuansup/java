@@ -20,7 +20,7 @@ public class SocketClient {
 
     private String IP = null; // IP 地址
     private JTextArea textArea; // 文本区域
-    private SocketClientRunner runner; // Socket 客户端运行器
+    private Thread runner; // Socket 客户端运行器
 
     /**
      * 设置为服务端
@@ -99,14 +99,7 @@ public class SocketClient {
             addText("不允许多次连接");
             return;
         }
-        runner = new SocketClientRunner();
-        runner.start();
-    }
-
-    // Socket 客户端的运行实例
-    public class SocketClientRunner extends Thread {
-        @Override
-        public void run() {
+        runner = new Thread(() -> {
             try {
                 addText("开始连接......");
                 // 初始化 Socket 服务器
@@ -149,6 +142,7 @@ public class SocketClient {
             } finally {
                 close();
             }
-        }
+        });
+        runner.start();
     }
 }
