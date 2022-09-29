@@ -12,25 +12,41 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class SocketClient {
-    private int port;
-    private ServerSocket serverSocket;
-    private Socket socket;
-    private InputStream inputStream;
-    private ByteArrayOutputStream byteArrayOutputStream;
+    private int port; // 端口号
+    private ServerSocket serverSocket; // Socket 服务器初始化实例
+    private Socket socket; // Socket
+    private InputStream inputStream; // 输入流
+    private ByteArrayOutputStream byteArrayOutputStream; // 字节数组输出流
 
-    private String IP = null;
-    private JTextArea textArea;
-    private SocketClientRunner runner;
+    private String IP = null; // IP 地址
+    private JTextArea textArea; // 文本区域
+    private SocketClientRunner runner; // Socket 客户端运行器
 
+    /**
+     * 设置为服务端
+     *
+     * @param port     端口号
+     * @param textArea 显示的文本区域
+     */
     public void setAsServer(int port, JTextArea textArea) {
         this.port = port;
         this.textArea = textArea;
     }
 
+    /**
+     * 向文本区域添加文本
+     *
+     * @param s 需要添加的文本
+     */
     private void addText(String s) {
         textArea.append(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " " + s + "\n");
     }
 
+    /**
+     * 发送文本
+     *
+     * @param s 文本内容
+     */
     public void sendText(String s) {
         try {
             OutputStream os = socket.getOutputStream();
@@ -40,13 +56,23 @@ public class SocketClient {
         }
     }
 
+    /**
+     * 设置为客户端
+     *
+     * @param IP          IP 地址
+     * @param port        端口号
+     * @param messageArea 显示的文本区域
+     */
     public void setAsClient(String IP, int port, JTextArea messageArea) {
         this.IP = IP;
         this.port = port;
         this.textArea = messageArea;
     }
 
-    public void close() {
+    /**
+     * 关闭资源
+     */
+    private void close() {
         try {
             if (serverSocket != null) {
                 serverSocket.close();
@@ -65,6 +91,9 @@ public class SocketClient {
         }
     }
 
+    /**
+     * 启动服务器
+     */
     public void startServer() {
         if (runner != null && runner.isAlive()) {
             addText("不允许多次连接");
@@ -74,11 +103,14 @@ public class SocketClient {
         runner.start();
     }
 
+    // Socket 客户端的运行实例
     public class SocketClientRunner extends Thread {
         @Override
         public void run() {
             try {
                 addText("开始连接......");
+                // 初始化 Socket 服务器
+                // 如果 IP 地址不存在，则为服务端，否则为客户端
                 if (IP == null) {
                     serverSocket = new ServerSocket(port);
                     socket = serverSocket.accept();
@@ -86,13 +118,20 @@ public class SocketClient {
                     socket = new Socket(IP, port);
                 }
                 addText("连接成功");
+                // 初始化输入流
                 inputStream = socket.getInputStream();
+                // 初始化字节数组输出流
                 byteArrayOutputStream = new ByteArrayOutputStream();
+                // 初始化缓冲区
                 byte[] buffer = new byte[1024];
                 int len;
+                // 循环读取数据，len 不为 -1 则读取成功
                 while ((len = inputStream.read(buffer)) != -1) {
+                    // 将读取到的数据写入字节数组输出流
                     byteArrayOutputStream.write(buffer, 0, len);
+                    // 将字节数组输出流转换为字符串并添加进文本
                     addText(byteArrayOutputStream.toString("GBK"));
+                    // 清空字节数组输出流
                     byteArrayOutputStream.reset();
                 }
             } catch (Exception ex) {
