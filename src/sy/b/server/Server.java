@@ -8,7 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
     public static void main(String[] args) {
@@ -16,21 +20,20 @@ public class Server {
         ServerTopBar serverTopBar = new ServerTopBar();
         MiddleBar middleBar = new MiddleBar();
         BottomBar bottomBar = new BottomBar();
-        serverTopBar.setClick(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try (ServerSocket server = new ServerSocket(serverTopBar.getPort())) {
-
-                        } catch (Exception ex) {
-                            middleBar.setText("发生错误：" + ex);
-                        }
-                    }
-                }).start();
+        serverTopBar.setClick(e -> new Thread(() -> {
+            try (ServerSocket server = new ServerSocket(serverTopBar.getPort())) {
+                middleBar.setText("开始建立服务器连接......");
+                Socket socket = server.accept();
+                middleBar.setText("连接成功");
+                while (true) {
+                    InputStream inputStream = socket.getInputStream();
+                    inputStream.read()
+                    middleBar.setText(new String(socket.getInputStream().readAllBytes(), "GBK"));
+                }
+            } catch (Exception ex) {
+                middleBar.setText("发生错误：" + ex);
             }
-        });
+        }).start());
         mainUI.setLayout(new BorderLayout());
         mainUI.setTitle("服务端");
         mainUI.setSize(500, 500);
