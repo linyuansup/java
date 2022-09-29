@@ -12,7 +12,7 @@ public class ClientTopBar extends JPanel {
     private final JButton connectButton;
     private final JPanel RightLayout;
 
-    public ClientTopBar(ActionListener onClick) {
+    public ClientTopBar() {
         super();
         IPLabel = new JLabel("IP 地址：");
         IPArea = new JTextArea("127.0.0.1");
@@ -20,7 +20,6 @@ public class ClientTopBar extends JPanel {
         portArea = new JTextArea("54531", 1, 5);
         connectButton = new JButton("连接");
         RightLayout = new JPanel(new BorderLayout());
-        connectButton.addActionListener(onClick);
         RightLayout.add(portLabel, BorderLayout.WEST);
         RightLayout.add(portArea, BorderLayout.CENTER);
         RightLayout.add(connectButton, BorderLayout.EAST);
@@ -37,5 +36,9 @@ public class ClientTopBar extends JPanel {
 
     public String getIP() {
         return IPArea.getText();
+    }
+
+    public void setClick(ActionListener onClick) {
+        connectButton.addActionListener(onClick);
     }
 }

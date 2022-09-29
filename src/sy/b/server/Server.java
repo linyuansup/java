@@ -8,21 +8,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ServerSocket;
 
 public class Server {
     public static void main(String[] args) {
         JFrame mainUI = new JFrame();
-        ServerTopBar serverTopBar = new ServerTopBar(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        ServerTopBar serverTopBar = new ServerTopBar();
         MiddleBar middleBar = new MiddleBar();
-        BottomBar bottomBar = new BottomBar(new ActionListener() {
+        BottomBar bottomBar = new BottomBar();
+        serverTopBar.setClick(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try (ServerSocket server = new ServerSocket(serverTopBar.getPort())) {
 
+                        } catch (Exception ex) {
+                            middleBar.setText("发生错误：" + ex);
+                        }
+                    }
+                }).start();
             }
         });
         mainUI.setLayout(new BorderLayout());

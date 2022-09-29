@@ -12,14 +12,16 @@ import java.awt.event.ActionListener;
 public class Client {
     public static void main(String[] args) {
         JFrame mainUI = new JFrame();
-        ClientTopBar clientTopBar = new ClientTopBar(new ActionListener() {
+        ClientTopBar clientTopBar = new ClientTopBar();
+        clientTopBar.setClick(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
         MiddleBar middleBar = new MiddleBar();
-        BottomBar bottomBar = new BottomBar(new ActionListener() {
+        BottomBar bottomBar = new BottomBar();
+        bottomBar.setClick(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
