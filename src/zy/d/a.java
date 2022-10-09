@@ -100,6 +100,11 @@ class Pool {
     private final int[] result = new int[500]; // 没用队列啥的，故意限制了长度，制造堵塞
     private int index = 0;
 
+    /**
+     * 向缓存池添加数据
+     *
+     * @param num 添加的数据
+     */
     public synchronized void add(int num) {
         while (index == 499) {
             // 如果池子满了，就停下来
@@ -114,6 +119,11 @@ class Pool {
         index++; // 动指针
     }
 
+    /**
+     * 从缓存池获取数据并退池
+     *
+     * @return 缓存池中的数据
+     */
     public synchronized int get() {
         while (index == 0) {
             // 如果池子空了，就停下来
