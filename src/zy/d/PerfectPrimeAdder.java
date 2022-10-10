@@ -1,6 +1,6 @@
 package zy.d;
 
-public class a {
+public class PerfectPrimeAdder {
     public static void main(String[] args) {
         Pool primePool = new Pool(); // 素数池
         Pool perfectPool = new Pool(); // 完全数池
