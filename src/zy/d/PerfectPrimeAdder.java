@@ -2,6 +2,7 @@ package zy.d;
 
 public class PerfectPrimeAdder {
     public static void main(String[] args) {
+        long timeMillis = System.currentTimeMillis();
         Pool primePool = new Pool(); // 素数池
         Pool perfectPool = new Pool(); // 完全数池
         Pool resultPool = new Pool(); // 结果池
@@ -15,6 +16,7 @@ public class PerfectPrimeAdder {
         perfectAdder.start();
         primeAdder.start();
         System.out.println((long) resultPool.get() * resultPool.get()); // int 会炸，结果池两个数乘在一起就好了
+        System.out.println(System.currentTimeMillis() - timeMillis);
     }
 }
 
